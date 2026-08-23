@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>청춘 퀴즈팡 - 참가자</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body style="background: #0f172a;">
+
+  <div class="player-wrapper">
+
+    <!-- Top Bar -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 4px 16px; color: #fff;">
+      <div style="font-size: 22px; font-weight: 900; color: #fbbf24;">🎉 청춘 퀴즈팡</div>
+      <div id="player-status-badge" style="font-size: 16px; font-weight: 800; background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 12px;">
+        대기 중
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW 1: JOIN SCREEN
+         ==================================================================== -->
+    <section id="player-view-join" class="view-section active">
+      <div class="player-card">
+        <h1 class="player-title">퀴즈 참가하기 🎯</h1>
+        <p style="font-size: 18px; color: #64748b; margin-bottom: 20px;">
+          화면에 표시된 방 번호와 닉네임을 입력하세요.
+        </p>
+
+        <!-- Room PIN Input -->
+        <input type="number" id="input-pin" class="player-input" placeholder="방 번호 4자리" maxlength="4">
+
+        <!-- Nickname Input -->
+        <input type="text" id="input-nickname" class="player-input" placeholder="내 이름이나 닉네임" maxlength="10">
+
+        <!-- Avatar Picker -->
+        <div style="font-size: 18px; font-weight: 800; color: #334155; margin-bottom: 6px;">
+          좋아하는 아이콘을 골라주세요:
+        </div>
+        <div class="avatar-picker">
+          <div class="avatar-choice active" data-avatar="🐶">🐶</div>
+          <div class="avatar-choice" data-avatar="🐱">🐱</div>
+          <div class="avatar-choice" data-avatar="🌸">🌸</div>
+          <div class="avatar-choice" data-avatar="🦁">🦁</div>
+          <div class="avatar-choice" data-avatar="🍎">🍎</div>
+          <div class="avatar-choice" data-avatar="🍀">🍀</div>
+        </div>
+
+        <button id="btn-player-join" class="btn btn-primary btn-large" style="width: 100%; margin-top: 10px;">
+          🚀 입장하기
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 2: WAITING LOBBY
+         ==================================================================== -->
+    <section id="player-view-waiting" class="view-section">
+      <div class="player-card" style="margin: auto 0;">
+        <div id="wait-avatar" style="font-size: 80px; margin-bottom: 12px; animation: pulseTimer 1.5s infinite alternate;">🐶</div>
+        <h2 id="wait-nickname" style="font-size: 32px; font-weight: 900; color: #1e1b4b; margin-bottom: 8px;">홍길동 님</h2>
+        <div style="display: inline-block; background: #eff6ff; color: #1d4ed8; font-size: 20px; font-weight: 800; padding: 8px 20px; border-radius: 20px; margin-bottom: 24px;">
+          방 번호: <span id="wait-pin">----</span>
+        </div>
+        <p style="font-size: 22px; font-weight: 800; color: #334155; line-height: 1.5;">
+          입장이 완료되었습니다! ✨<br>
+          강사님이 퀴즈를 시작할 때까지 잠시만 기다려주세요.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 3: IN-GAME QUESTION ANSWERING
+         ==================================================================== -->
+    <section id="player-view-question" class="view-section">
+      <!-- Question Prompt on Mobile -->
+      <div style="background: rgba(255,255,255,0.95); border-radius: 20px; padding: 18px; text-align: center; margin-bottom: 14px;">
+        <div id="player-q-progress" style="font-size: 16px; font-weight: 800; color: #2563eb; margin-bottom: 4px;">문제 1 / 5</div>
+        <div id="player-q-text" style="font-size: 22px; font-weight: 900; color: #0f172a; line-height: 1.35;">
+          문제가 표시됩니다.
+        </div>
+      </div>
+
+      <!-- Choice Buttons -->
+      <div id="player-choice-container" class="player-choice-grid">
+        <!-- Injected by JS (4 Choices or OX) -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 4: ANSWER RESULT / FEEDBACK
+         ==================================================================== -->
+    <section id="player-view-result" class="view-section">
+      <div id="player-feedback-card" class="feedback-box correct">
+        <div id="fb-emoji" class="feedback-emoji">🎉</div>
+        <div id="fb-title" class="feedback-title">정답입니다!</div>
+        <div id="fb-points" class="feedback-points">+950 점 획득!</div>
+        <div style="margin-top: 24px; font-size: 22px; font-weight: 800; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 16px;">
+          현재 점수: <span id="fb-total-score">950</span>점
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 5: FINAL GAME OVER
+         ==================================================================== -->
+    <section id="player-view-gameover" class="view-section">
+      <div class="player-card" style="margin: auto 0;">
+        <div style="font-size: 72px; margin-bottom: 12px;">🏆</div>
+        <h2 style="font-size: 32px; font-weight: 900; color: #1e1b4b; margin-bottom: 8px;">퀴즈 완료!</h2>
+        
+        <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 3px solid #f59e0b; border-radius: 20px; padding: 24px; margin: 20px 0;">
+          <div style="font-size: 20px; font-weight: 800; color: #b45309;">나의 최종 순위</div>
+          <div id="player-final-rank" style="font-size: 48px; font-weight: 900; color: #b45309; margin: 6px 0;">🥇 1등</div>
+          <div id="player-final-score" style="font-size: 24px; font-weight: 800; color: #1e1b4b;">총 4,850점</div>
+        </div>
+
+        <p style="font-size: 20px; font-weight: 800; color: #475569;">
+          오늘 수업 퀴즈에 적극적으로 참여해주셔서 감사합니다! 👏
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/sound-fx.js"></script>
+  <script src="js/player.js"></script>
+</body>
+</html>
